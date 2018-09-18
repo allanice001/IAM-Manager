@@ -42,7 +42,12 @@
               {% for i in instance.Instances %}
               {% if not i.State.Name == "terminated" %}
               <tr>
-                <td>{{ i.KeyName }}</td>
+                <td>{% for tags in i.Tags %}
+                      {% if tags.Key == 'Name' %}
+                        {{ tags.Value }}
+                      {% endif %}
+                    {% endfor %}
+                </td>
                 <td>{{i.State.Name|capfirst}}</td>
                 <td>{{ i.LaunchTime }}</td>
                 <td class="actions text-center">
